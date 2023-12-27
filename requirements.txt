@@ -1,3 +1,6 @@
+python -m pip install --upgrade pip
+pip install flake8 pytest
+if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 import pandas==1.3.5
 import numpy==1.19.5
 import plotly==5.16.1
