@@ -24,4 +24,4 @@ Spécifications du dashboard : Il contient les fonctionnalités suivantes :
 Il permet de visualiser le score et l’interprétation de ce score pour chaque client de façon intelligible pour une personne non experte en data science.
 Il permet de visualiser des informations descriptives relatives à un client (via un système de filtre).
 Il permet de comparer les informations descriptives relatives dans la base de données.
-Le dashboard réalisé avec Streamlit est accessible en cliquant ici
+Le dashboard réalisé avec Streamlit est accessible en cliquant ici https://projet-7-ds.onrender.com
