@@ -9,6 +9,6 @@ shap==0.42.1
 seaborn==0.12.2
 scikit-learn==1.2.0
 lightgbm==4.0.0
-PIL==9.5.0
+PIL
 streamlit==1.23.1
 sys
