@@ -2,24 +2,7 @@ from typing import Annotated
 from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 from fastapi.testclient import TestClient
-# from .main import app
 from main import app
-
-app = FastAPI()
-
-
-@app.get("/")
-async def read_main():
-    return {"msg": "Hello World"}
-
-
-client = TestClient(app)
-
-
-def test_read_main():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}
 
 # # Fonction addition
 # def test_addition():
@@ -28,6 +11,19 @@ def test_read_main():
 # # Fonction soustraction
 # def test_subtraction():
 #     assert 3 - 1 == 2
+
+app = FastAPI()
+
+@app.get("/")
+async def read_main():
+    return {"msg": "Hello World"}
+
+client = TestClient(app)
+
+def test_read_main():
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"msg": "Hello World"}
 
 fake_secret_token = "coneofsilence"
 
@@ -38,12 +34,10 @@ fake_db = {
 
 app = FastAPI()
 
-
 class Item(BaseModel):
     id: str
     title: str
     description: str | None = None
-
 
 @app.get("/items/{item_id}", response_model=Item)
 async def read_main(item_id: str, x_token: Annotated[str, Header()]):
@@ -52,7 +46,6 @@ async def read_main(item_id: str, x_token: Annotated[str, Header()]):
     if item_id not in fake_db:
         raise HTTPException(status_code=404, detail="Item not found")
     return fake_db[item_id]
-
 
 @app.post("/items/", response_model=Item)
 async def create_item(item: Item, x_token: Annotated[str, Header()]):
