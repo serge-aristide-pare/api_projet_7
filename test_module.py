@@ -13,18 +13,18 @@ import uvicorn
 # def test_subtraction():
 #     assert 3 - 1 == 2
 
-app = FastAPI()
+# app = FastAPI()
 
-@app.get("/")
-async def read_main():
-    return {"msg": "Hello World"}
+# @app.get("/")
+# async def read_main():
+#     return {"msg": "Hello World"}
 
-client = TestClient(app)
+# client = TestClient(app)
 
-def test_read_main():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}
+# def test_read_main():
+#     response = client.get("/")
+#     assert response.status_code == 200
+#     assert response.json() == {"msg": "Hello World"}
 
 fake_secret_token = "coneofsilence"
 
