@@ -2,7 +2,8 @@ from typing import Annotated
 from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 from fastapi.testclient import TestClient
-from .main import app
+# from .main import app
+from ..main import app
 
 app = FastAPI()
 
