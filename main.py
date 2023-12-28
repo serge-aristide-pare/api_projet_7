@@ -78,11 +78,11 @@ def shap_values():
             'shap_values_1': shap_val_global[1].tolist(),
            'feature_names': client_data.columns.tolist()}
 
-if __name__ == '__main__':
-       port = int(os.environ.get('PORT', 8080))
-       st.write(f"Running on port {port}")
-       app.run(port=port)
+# if __name__ == '__main__':
+#        port = int(os.environ.get('PORT', 8080))
+#        st.write(f"Running on port {port}")
+#        app.run(port=port)
 
-# if __name__ == "__main__":
-#     uvicorn.run(app, host="0.0.0.0")
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0")
     
