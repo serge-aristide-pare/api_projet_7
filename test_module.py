@@ -3,6 +3,7 @@ from fastapi import FastAPI, Header, HTTPException
 from pydantic import BaseModel
 from fastapi.testclient import TestClient
 from main import app
+import uvicorn
 
 # # Fonction addition
 # def test_addition():
