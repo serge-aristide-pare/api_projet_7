@@ -7,7 +7,7 @@ import pandas as pd
 # Chargement du modèle
 import joblib
 from joblib import load
-import uvicorn
+# import uvicorn
 # Recuperation de l'identifiant du client
 from pydantic import BaseModel
 from typing import List
@@ -83,6 +83,6 @@ def shap_values():
 #        st.write(f"Running on port {port}")
 #        app.run(port=port)
 
-if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0")
+# if __name__ == "__main__":
+#     uvicorn.run(app, host="0.0.0.0")
     
