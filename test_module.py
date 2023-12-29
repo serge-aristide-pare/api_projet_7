@@ -1,66 +1,46 @@
+import os
+import unittest
 from fastapi import FastAPI, Request
-import streamlit as st
-import matplotlib.pyplot as plt
-import seaborn as sns
-import pandas as pd
-# Chargement du modèle
-import joblib
+from fastapi.testclient import TestClient
+from main import app
 from joblib import load
-import uvicorn
-# Recuperation de l'identifiant du client
-from pydantic import BaseModel
-from typing import List
-from fastapi.encoders import jsonable_encoder
-import shap
+import lightgbm as lgbm
+from lightgbm import LGBMClassifier
+from lightgbm import plot_importance
 
-# Declaring our FastAPI instance
-app = FastAPI(
-    title="Credit Scoring API",
-    description="Un simple API utilisant le modèle de machine learning pour predire le score credit",
-    version="0.1",
-    )
+client = TestClient(app)
 
-# Defining path operation for root endpoint
-@app.get('/Loan application scoring dashboard')
-def main():
-    return {'message': 'Bienvenu dans notre tableau de bord du credit scoring !'}
- 
-class request_body(BaseModel):
-    id_client : int
+class TestCreditScoringAPI(unittest.TestCase):
     
-@app.post('/predict') # local : http://127.0.0.1:8000/predict
-def predict(data : request_body):
-    test_data = data.id_client
-    df_client = base_200_clients.loc[[test_data]].drop(columns=['NAME_CONTRACT_TYPE'])#[cols]
-    class_idx = loaded_model.predict(df_client)[0]
-    class_proba = loaded_model.predict_proba(df_client)
-    prob=None
-    if class_idx ==0 :
-        prob = class_proba[0][0]
-    else :
-        prob = class_proba[0][1]
-    return {"client_id": test_data, "prediction": int(class_idx), "probabilite": round(prob, 3)}
+    def test_predict_endpoint(self):
+        response = client.post('/predict', json={"id_client": 263589})
+        self.assertEqual(response.status_code, 200)
+        json_response = response.json()
+        self.assertIn("client_id", json_response)
+        self.assertIn("prediction", json_response)
+        self.assertIn("probabilite", json_response)
 
-@app.get('/shaplocal/{client_id}')
-def shap_values_local(client_id: int):
-    """ Calcul les shap values pour un client.
-        :param: client_id (int)
-        :return: shap values du client (json).
-        """
-    client_data = base_200_clients.loc[[int(client_id)]].drop(columns=['NAME_CONTRACT_TYPE'])
-    shap_val = explainer(client_data)[0][:, 1]
-    return {'shap_values': shap_val.values.tolist(),
-            'base_value': shap_val.base_values,
-            'data': client_data.values.tolist(),
-            'feature_names': client_data.columns.tolist()}
+    def test_root_endpoint(self):
+        response = client.get('/Loan application scoring dashboard')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {'message': 'Bienvenu dans notre tableau de bord du credit scoring !'})
 
-@app.get('/shap')
-def shap_values():
-    """ Calcul les shap values de l'ensemble du jeu de données
-    :param:
-    :return: shap values
-    """
-    client_data = base_200_clients.drop(columns=['NAME_CONTRACT_TYPE'])
-    return {'shap_values_0': shap_val_global[0].tolist(),
-            'shap_values_1': shap_val_global[1].tolist(),
-           'feature_names': client_data.columns.tolist()}
+    def test_shap_values_local_endpoint(self):
+        response = client.get('/shaplocal/263589')
+        self.assertEqual(response.status_code, 200)
+        json_response = response.json()
+        self.assertIn("shap_values", json_response)
+        self.assertIn("base_value", json_response)
+        self.assertIn("data", json_response)
+        self.assertIn("feature_names", json_response)
+
+    def test_shap_values_endpoint(self):
+        response = client.get('/shap')
+        self.assertEqual(response.status_code, 200)
+        json_response = response.json()
+        self.assertIn("shap_values_0", json_response)
+        self.assertIn("shap_values_1", json_response)
+        self.assertIn("feature_names", json_response)
+
+if __name__ == '__main__':
+    unittest.main()
