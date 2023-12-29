@@ -43,9 +43,9 @@ st.markdown("""
             padding-bottom: 1rem; padding-left: 1rem;}
             </style> """, unsafe_allow_html=True)
 
-url = 'http://127.0.0.1:8000/predict'
-urli = 'http://127.0.0.1:8000/shaplocal'
-url3 = 'http://127.0.0.1:8000/shap'
+url = 'https://projet-7-ds.onrender.com/predict'
+urli = 'https://projet-7-ds.onrender.com/shaplocal'
+url3 = 'https://projet-7-ds.onrender.com/shap'
 
 ##########################################################
 ####### Titre de la page ################################
