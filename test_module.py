@@ -1,3 +1,19 @@
+from fastapi import FastAPI, Request
+import streamlit as st
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+# Chargement du modèle
+import joblib
+from joblib import load
+import uvicorn
+# Recuperation de l'identifiant du client
+from pydantic import BaseModel
+from typing import List
+from fastapi.encoders import jsonable_encoder
+import shap
+
+
 # # Fonction addition
 # def test_addition():
 #     assert 1 + 1 == 2
@@ -5,6 +21,13 @@
 # # Fonction soustraction
 # def test_subtraction():
 #     assert 3 - 1 == 2
+
+# Declaring our FastAPI instance
+app = FastAPI(
+    title="Credit Scoring API",
+    description="Un simple API utilisant le modèle de machine learning pour predire le score credit",
+    version="0.1",
+    )
 
 # Defining path operation for root endpoint
 @app.get('/Loan application scoring dashboard')
