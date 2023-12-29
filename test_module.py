@@ -13,15 +13,6 @@ from typing import List
 from fastapi.encoders import jsonable_encoder
 import shap
 
-
-# # Fonction addition
-# def test_addition():
-#     assert 1 + 1 == 2
-
-# # Fonction soustraction
-# def test_subtraction():
-#     assert 3 - 1 == 2
-
 # Declaring our FastAPI instance
 app = FastAPI(
     title="Credit Scoring API",
