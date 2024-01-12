@@ -1,0 +1,6 @@
+
+API : https://apiprojet7-7neqsfmxalfkm4jufpajsd.streamlit.app
+
+RENDER : https://projet-7-ds.onrender.com/docs
+
+GITHUB : https://github.com/serge-aristide-pare/api_projet_7
